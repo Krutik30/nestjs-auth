@@ -9,8 +9,7 @@ export class AuthController {
   // post request of /auth/signUp route
   @Post('signUp')
   signUp(@Body() dto: AuthDto) {
-    console.log({ dto });
-    return this.authService.signUp();
+    return this.authService.signUp(dto);
   }
 
   @Post('signIn')
