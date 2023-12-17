@@ -1,15 +1,19 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PrismaClient } from '@prisma/client';
 
+// no need to use injectable if no dependencies there
 @Injectable()
 export class PrismaService extends PrismaClient {
-  constructor() {
+  // here you don't want to use prisma -> use config
+  constructor(config: ConfigService) {
     super({
       datasources: {
         db: {
-          url: 'postgresql://postgres:Krutik@30@localhost:5434/nest-auth?schema=public',
+          url: config.get('DATABASE_URL'),
         },
       },
     });
+    // prisma.user.findMany()
   }
 }
