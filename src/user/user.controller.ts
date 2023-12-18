@@ -1,4 +1,19 @@
-import { Controller } from '@nestjs/common';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { User } from '@prisma/client';
+import { GetUser } from 'src/auth/decorator/get-user.decorator';
+import { JwtGaurd } from 'src/auth/guard';
 
-@Controller('user')
-export class UserController {}
+@UseGuards(JwtGaurd)
+@Controller('users')
+export class UserController {
+
+    // get route as /users/test 
+    @Get('me')
+    getMe(@GetUser() user: User) {
+        // console.log({ user: req.user })
+        return user;
+    }
+
+
+}
