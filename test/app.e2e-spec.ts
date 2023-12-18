@@ -103,6 +103,7 @@ describe('App e2e', () => {
       })
     })
   })
+
   describe('User', () => {
     describe('Get me', () => {
       it('It should only pass if token is available', () => {
@@ -134,6 +135,7 @@ describe('App e2e', () => {
       })
     })
   })
+
   describe('Bookmarks', () => {
     describe('Create Bookmarks', () => {
 
