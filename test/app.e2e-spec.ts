@@ -3,7 +3,7 @@ import { AppModule } from '../src/app.module';
 import * as pactum from 'pactum';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { PrismaService } from '../src/prisma/prisma.service';
-import { AuthDto } from 'src/auth/dto';
+import { AuthDto, EditUserDto } from 'src/auth/dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -105,7 +105,7 @@ describe('App e2e', () => {
   })
   describe('User', () => {
     describe('Get me', () => {
-      it('It should onl pass if token is available', () => {
+      it('It should only pass if token is available', () => {
         return pactum
           .spec()
           // .post('/auth/signUp')
@@ -117,7 +117,21 @@ describe('App e2e', () => {
       })
     })
     describe('Edit User', () => {
-
+      it('It should edit the user', () => {
+        const dto: EditUserDto = {
+          firstName: 'Krutik',
+          email: 'aghera@gmail.com'
+        }
+        return pactum
+          .spec()
+          // .post('/auth/signUp')
+          .patch('http://localhost:3333/users')
+          .withHeaders({
+            Authorization: 'Bearer $S{userAt}'
+          })
+          .withBody(dto)
+          .expectStatus(200);
+      })
     })
   })
   describe('Bookmarks', () => {
